@@ -5,7 +5,7 @@ namespace Repository
     public interface IProductRepository
     {
     
-        Task<IEnumerable<Product>> getAllProduct(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoriesId);
+        Task<IEnumerable<Product>> getAllProduct( string? desc, int? minPrice, int? maxPrice, int?[] categoriesId);
      
     }
 }

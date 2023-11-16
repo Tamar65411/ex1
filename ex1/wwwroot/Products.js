@@ -7,33 +7,36 @@ const showProduct = async () => {
 
 
 const getProducts = async () => {
-     let url = `/api/Products`;
-    let categories = []
-    let categoriesElements=document.getElementsByClassName(".opt");
+    let url = `/api/Products`;
+    let categories=[]
+    let categoriesElements = document.querySelectorAll(".opt");
+    console.log(categoriesElements)
     for (let i = 0; i < categoriesElements.length; i++) {
         if (categoriesElements[i].checked) {
-            categories.push(categoriesElements[i].categoryId)
+            categories.push(categoriesElements[i].id)
+            console.log(categories)
         }
     }
     let desc = document.getElementById("nameSearch").value
     let minPrice = document.getElementById("minPrice").value
     let maxPrice = document.getElementById("maxPrice").value
-   
-
+    
+    if (desc != '' || minPrice > 0 || maxPrice > minPrice || categories.length>0 ) {
+        url +=  '?'
+    }
     if (desc!='') {
-        url = url + '&desc=${desc}'
+        url += `&desc=${desc}`
     }
-
     if (minPrice >0) {
-        url = url + '&minPrice=${minPrice}'
+        url += `&minPrice=${minPrice}`
     }
-    if (maxPrice >= minPrice) {
-        url = url + '&maxPrice=${maxPrice}'
+    if (maxPrice > minPrice) {
+        url +=  `&maxPrice=${maxPrice}`
     }
-
     for (let i = 0; i < categories.length; i++) {
-        url = url + '&categoriesId=${categories[i]}'
+        url = url + `&categoriesId=${categories[i]}`
     }
+    
 
     try {
         const responseGet = await fetch(url);
@@ -43,7 +46,7 @@ const getProducts = async () => {
         }
         else {
             const productsList = await responseGet.json();
-            console.log(productsList)
+           
             return productsList;
         }
     }
@@ -62,7 +65,7 @@ const drowProduct = (product) => {
     clon.querySelector(".price").innerText = product.price;
     clon.querySelector(".description").innerText = product.description;
     clon.querySelector("button").addEventListener('click', () => { addToShoppingBag(product) });
-    console.log(clon)
+   
 
     document.getElementById("PoductList").appendChild(clon);
 
@@ -83,13 +86,13 @@ const showCategories = async () => {
 
 const getCategories = async() => {
     try {
-        const responseGet = await fetch(`api/Categories`);
+        const responseGet = await fetch('api/Categories');
         if (!responseGet.ok) {
             alert("no categories")
         }
         else {
             const categoriesList = await responseGet.json();
-            console.log(categoriesList)
+            
             return categoriesList;
         }
     }
@@ -104,7 +107,7 @@ const drowCategory = (category) => {
     clon.querySelector(".opt").id = category.categoryId;
     clon.querySelector("label").for = category.categoryId;
     clon.querySelector(".OptionName").innerText = category.name;
-    console.log(clon);
+   
     document.getElementById("categoryList").appendChild(clon);
 }
 
@@ -112,4 +115,7 @@ const showAll = () => {
     showCategories();
     showProduct();
 }
-
+const filterProducts = async () => {
+    document.getElementById("PoductList").replaceChildren([])
+    await showProduct();
+}

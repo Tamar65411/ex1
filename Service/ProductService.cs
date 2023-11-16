@@ -17,9 +17,9 @@ namespace Service
             this.repository = repository;
         }
 
-        public async Task<IEnumerable<Product>> getAllProduct(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoriesId)
+        public async Task<IEnumerable<Product>> getAllProduct( string? desc, int? minPrice, int? maxPrice, int?[] categoriesId)
         {
-            return await repository.getAllProduct( position,  skip,  desc,  minPrice,  maxPrice,categoriesId);
+            return await repository.getAllProduct(   desc,  minPrice,  maxPrice,categoriesId);
         }
     }
 }

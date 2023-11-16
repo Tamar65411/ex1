@@ -18,9 +18,9 @@ namespace ex1.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get(int position, int skip, string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoriesId)
+        public async Task<IEnumerable<Product>> Get( string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoriesId)
         {
-            return await service.getAllProduct( position,  skip,  desc,  minPrice,  maxPrice, categoriesId);
+            return await service.getAllProduct( desc,  minPrice,  maxPrice, categoriesId);
         }
 
         // GET api/<ProductsController>/5
