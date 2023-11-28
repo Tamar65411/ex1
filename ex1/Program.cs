@@ -27,6 +27,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StoreDataBase2Context>(option => option.UseSqlServer
 ("Server=srv2\\pupils;Database=StoreDataBase2Context;Trusted_Connection=True;TrustServerCertificate=True"));
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

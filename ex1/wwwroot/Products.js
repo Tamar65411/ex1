@@ -60,20 +60,23 @@ const getProducts = async () => {
 const drowProduct = (product) => {
    let tempProduct = document.getElementById("temp-card");
    let clon = tempProduct.content.cloneNode(true);
-    clon.querySelector("img").src = "./Image/" + product.image;
-    clon.querySelector("h1").innerText = product.name;
+    clon.querySelector("img").src = "./Image/"+ product.image;
+    clon.querySelector("h1").innerText = product.name + "$";;
     clon.querySelector(".price").innerText = product.price;
     clon.querySelector(".description").innerText = product.description;
     clon.querySelector("button").addEventListener('click', () => { addToShoppingBag(product) });
    
-
     document.getElementById("PoductList").appendChild(clon);
 
 
 }
+const myProducts = [];
 
 const addToShoppingBag = (product) => {
-
+   
+    myProducts.push(product);
+    sessionStorage.setItem("products", JSON.stringify(myProducts))
+    document.getElementById("ItemsCountText").innerText = countProducts;
 }
 
 const showCategories = async () => {
@@ -115,6 +118,7 @@ const showAll = () => {
     showCategories();
     showProduct();
 }
+
 const filterProducts = async () => {
     document.getElementById("PoductList").replaceChildren([])
     await showProduct();

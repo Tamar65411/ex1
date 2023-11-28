@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc.Core.Infrastructure;
 using Zxcvbn;
 using Service;
 using Entities;
+using DTO;
+using AutoMapper;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ex1.Controllers
@@ -15,9 +17,11 @@ namespace ex1.Controllers
     public class UsersController : ControllerBase
     {
         IUserService service;
-        public UsersController(IUserService service)
+        IMapper mapper;
+        public UsersController(IUserService service, IMapper mapper)
         {
             this.service = service;
+            this.mapper = mapper;
         }
         // GET: api/<Users>
         [HttpGet]
@@ -45,14 +49,15 @@ namespace ex1.Controllers
 
         // POST api/<Users>
         [HttpPost]
-        public async Task<CreatedAtActionResult> Post([FromBody] UsersTbl user)
+        public async Task<CreatedAtActionResult> Post([FromBody] UserDTO userDTO )
         {
-
+            UsersTbl user = mapper.Map< UserDTO,UsersTbl>(userDTO);
             UsersTbl newUser = await service.addUser(user);
             if (newUser == null)
             {
                 return null;
             }
+            
             return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
 
         }

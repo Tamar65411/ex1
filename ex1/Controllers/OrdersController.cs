@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -11,17 +13,12 @@ namespace ex1.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        IOrdersService service;
-        public OrdersController(IOrdersService service)
+       private readonly IOrdersService service;
+        private readonly IMapper mapper;
+        public OrdersController(IOrdersService service, IMapper mapper)
         {
             this.service = service;
-        }
-
-        // GET: api/<OrdersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            this.mapper = mapper;
         }
 
         // GET api/<OrdersController>/5
@@ -33,8 +30,9 @@ namespace ex1.Controllers
 
         // POST api/<OrdersController>
         [HttpPost]
-        public async Task<CreatedAtActionResult> Post([FromBody] OrdersTbl order)
+        public async Task<CreatedAtActionResult> Post([FromBody] OrderDTO orderDTO)
         {
+            OrdersTbl order = mapper.Map<OrderDTO, OrdersTbl>(orderDTO); 
 
             OrdersTbl newOrder = await service.addNewOrder(order);
             if (newOrder == null)
@@ -46,16 +44,8 @@ namespace ex1.Controllers
 
         }
 
-        // PUT api/<OrdersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<OrdersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
+
     }
 }
