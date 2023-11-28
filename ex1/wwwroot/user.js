@@ -35,8 +35,8 @@ const register = async () => {
 const login = async () => {
   
     let userLogin = {
-        emailLog: document.getElementById("emailLog").value,
-        passwordLog : document.getElementById("passwordLog").value
+        email: document.getElementById("emailLog").value,
+        password : document.getElementById("passwordLog").value
     }
 
     try {
@@ -51,14 +51,35 @@ const login = async () => {
             alert(`not login`)
         }
         else {
-            const newUser = await responsePost.json();
-            
+            const User = await responsePost.json();
+            sessionStorage.setItem("id", JSON.stringify(User))
+            window.location.href = "./Products.html"
+
         }
     }
     catch (error) {
         alert(error, "error")
     }
 }
+
+//try {
+//    const responseGet = await fetch(`api/Users?email=${emailLog}&password=${passwordLog}`);
+//    if (!responseGet.ok) {
+//        alert("not login")
+//    }
+//    else {
+//        const dataGet = await responseGet.json();
+//        console.log(dataGet)
+//        sessionStorage.setItem("id", JSON.stringify(dataGet))
+//        window.location.href = "./Products.html"
+//    }
+
+//}
+//catch (error) {
+//    alert(error)
+//}
+
+
 const update = async () => {
     var user = {
         email: document.getElementById("emailUp").value,

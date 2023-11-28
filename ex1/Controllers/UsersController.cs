@@ -25,13 +25,20 @@ namespace ex1.Controllers
         }
         // POST api/<Users>/login
         [HttpPost("login")]
-        public async Task<ActionResult<UsersTbl>> Get([FromBody]UserLoginDTO userLogin)
+        public async Task<ActionResult<UsersTbl>> Get([FromBody] UserLoginDTO userLogin)
         {
-            UsersTbl user = await service.getUserByEmailAndPassword(userLogin.Email,userLogin.Password);
+            UsersTbl user = await service.getUserByEmailAndPassword(userLogin);
             if (user == null)
                 return NoContent();
             return Ok(user);
         }
+        //public async Task<ActionResult<UsersTbl>> Get([FromBody] UserLoginDTO userLogin)
+        //{
+        //    UsersTbl user = await service.getUserByEmailAndPassword(userLogin.Email, userLogin.Password);
+        //    if (user == null)
+        //        return NoContent();
+        //    return Ok(user);
+        //}
 
         // GET api/<Users>/5
         [HttpGet("{id}")]

@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTO;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,16 @@ namespace Repository
         }
      
 
-        public async Task<UsersTbl> getUserByEmailAndPassword(string email, string password)
-        {
-            return await dbContext.UsersTbls.Where(e => e.Password == password && e.Email == email).FirstOrDefaultAsync();
-            
-    
-
-        }
-        //public async Task<User> getUserById(int id)
+        //public async Task<UsersTbl> getUserByEmailAndPassword(string email, string password)
         //{
+        //    return await dbContext.UsersTbls.Where(e => e.Password == password && e.Email == email).FirstOrDefaultAsync();
         //}
+
+        public async Task<UsersTbl> getUserByEmailAndPassword(UserLoginDTO userLoginDTO)
+        {
+            return await dbContext.UsersTbls.Where(e => e.Password == userLoginDTO.Password && e.Email == userLoginDTO.Email).FirstOrDefaultAsync();
+        }
+
 
         public async Task<UsersTbl> addUser(UsersTbl user)
         {
