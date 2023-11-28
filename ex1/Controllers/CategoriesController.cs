@@ -26,7 +26,7 @@ namespace ex1.Controllers
         {
 
            IEnumerable <Category > categoriesList= await service.getAllCategories();
-            IEnumerable<CategoriesDTO> categoriesListDTO = mapper.Map<IEnumerable<Category>, IEnumerable<CategoriesDTO>>(categoriesList);
+           IEnumerable<CategoriesDTO> categoriesListDTO = mapper.Map<IEnumerable<Category>, IEnumerable<CategoriesDTO>>(categoriesList);
             return categoriesListDTO;
         }
 

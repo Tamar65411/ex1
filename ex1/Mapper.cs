@@ -11,6 +11,8 @@ namespace ex1
            CreateMap<OrdersTbl, OrderDTO>().ReverseMap();
            CreateMap<UsersTbl, UserDTO>().ReverseMap();
             CreateMap<Category, CategoriesDTO>().ReverseMap();
+            CreateMap<Product, ProductDTO>().ForMember(dest=>dest.CategoryName,
+                opts=>opts.MapFrom(src=>src.Category.Name)) .ReverseMap();
 
         }
 

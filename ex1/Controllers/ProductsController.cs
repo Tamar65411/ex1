@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -10,17 +12,21 @@ namespace ex1.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private IProductService service;
-        public ProductsController(IProductService service)
+        private readonly IProductService service;
+        private readonly IMapper mapper;
+        public ProductsController(IProductService service, IMapper mapper)
         {
             this.service = service;
+            this.mapper = mapper;
         }
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<IEnumerable<Product>> Get( string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoriesId)
+        public async Task<IEnumerable<ProductDTO>> Get( string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoriesId)
         {
-            return await service.getAllProduct( desc,  minPrice,  maxPrice, categoriesId);
+            IEnumerable<Product> products= await service.getAllProduct( desc,  minPrice,  maxPrice, categoriesId);
+            IEnumerable<ProductDTO> productsDTO = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+            return productsDTO;
         }
 
     

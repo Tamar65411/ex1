@@ -33,24 +33,30 @@ const register = async () => {
 
 
 const login = async () => {
-    let emailLog = document.getElementById("emailLog").value
-    let passwordLog = document.getElementById("passwordLog").value
+  
+    let userLogin = {
+        emailLog: document.getElementById("emailLog").value,
+        passwordLog : document.getElementById("passwordLog").value
+    }
 
     try {
-        const responseGet = await fetch(`api/Users?email=${emailLog}&password=${passwordLog}`);
-        if (!responseGet.ok) {
-            alert("not login")
+        const responsePost = await fetch('api/Users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userLogin)
+        });
+        if (!responsePost.ok) {
+            alert(`not login`)
         }
         else {
-            const dataGet = await responseGet.json();
-            console.log(dataGet)
-            sessionStorage.setItem("id", JSON.stringify(dataGet))
-            window.location.href = "./Products.html"
+            const newUser = await responsePost.json();
+            
         }
-
     }
     catch (error) {
-        alert(error)
+        alert(error, "error")
     }
 }
 const update = async () => {

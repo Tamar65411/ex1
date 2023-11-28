@@ -11,7 +11,7 @@ using AutoMapper;
 
 namespace ex1.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -23,12 +23,12 @@ namespace ex1.Controllers
             this.service = service;
             this.mapper = mapper;
         }
-        // GET: api/<Users>
-        [HttpGet]
-        public async Task<ActionResult<UsersTbl>> Get([FromQuery] string email, [FromQuery] string password)
+        // POST api/<Users>/login
+        [HttpPost("login")]
+        public async Task<ActionResult<UsersTbl>> Get([FromBody]UserLoginDTO userLogin)
         {
-            UsersTbl user = await service.getUserByEmailAndPassword(email, password);
-            if(user==null)
+            UsersTbl user = await service.getUserByEmailAndPassword(userLogin.Email,userLogin.Password);
+            if (user == null)
                 return NoContent();
             return Ok(user);
         }
@@ -39,15 +39,10 @@ namespace ex1.Controllers
         {
             return "value";
         }
-        //public async Task<ActionResult<User>> Get([FromRoute]int id)
-        //{
-        //    User user = await service.getUserById(id);
-        //    if (user == null)
-        //        return NoContent();
-        //    return Ok(user);
-        //}
+
 
         // POST api/<Users>
+        
         [HttpPost]
         public async Task<CreatedAtActionResult> Post([FromBody] UserDTO userDTO )
         {
