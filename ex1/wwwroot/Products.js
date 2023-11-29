@@ -61,8 +61,8 @@ const drowProduct = (product) => {
    let tempProduct = document.getElementById("temp-card");
    let clon = tempProduct.content.cloneNode(true);
     clon.querySelector("img").src = "./Image/"+ product.image;
-    clon.querySelector("h1").innerText = product.name + "$";;
-    clon.querySelector(".price").innerText = product.price;
+    clon.querySelector("h1").innerText = product.name ;
+    clon.querySelector(".price").innerText = product.price+ "$";
     clon.querySelector(".description").innerText = product.description;
     clon.querySelector("button").addEventListener('click', () => { addToShoppingBag(product) });
    

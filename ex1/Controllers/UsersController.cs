@@ -16,29 +16,26 @@ namespace ex1.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly ILogger<UsersController> logger;
         IUserService service;
         IMapper mapper;
-        public UsersController(IUserService service, IMapper mapper)
+        public UsersController(IUserService service, IMapper mapper, ILogger<UsersController> logger)
         {
             this.service = service;
             this.mapper = mapper;
+            this.logger = logger;
         }
         // POST api/<Users>/login
         [HttpPost("login")]
-        public async Task<ActionResult<UsersTbl>> Get([FromBody] UserLoginDTO userLogin)
+        public async Task<ActionResult<UsersTbl>> Post([FromBody] UserLoginDTO userLogin)
         {
             UsersTbl user = await service.getUserByEmailAndPassword(userLogin);
             if (user == null)
                 return NoContent();
+            logger.LogInformation($"user login");
             return Ok(user);
         }
-        //public async Task<ActionResult<UsersTbl>> Get([FromBody] UserLoginDTO userLogin)
-        //{
-        //    UsersTbl user = await service.getUserByEmailAndPassword(userLogin.Email, userLogin.Password);
-        //    if (user == null)
-        //        return NoContent();
-        //    return Ok(user);
-        //}
+
 
         // GET api/<Users>/5
         [HttpGet("{id}")]
@@ -59,16 +56,17 @@ namespace ex1.Controllers
             {
                 return null;
             }
-            
+           
             return CreatedAtAction(nameof(Get), new { id = newUser.UserId }, newUser);
 
         }
 
         // PUT api/<Users>/5
         [HttpPut("{id}")]
-        public async Task Put( [FromBody] UsersTbl value)
+        public async Task Put( [FromBody] UserDTO value)
         {
-            await service.updateUser( value);
+            UsersTbl user = mapper.Map<UserDTO, UsersTbl>(value);
+                await service.updateUser(user);
 
         }
 

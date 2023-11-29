@@ -3,6 +3,8 @@ using Repository;
 using Service;
 using ex1.Controllers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using NLog.Web;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -20,15 +22,15 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 
+builder.Host.UseNLog();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<StoreDataBase2Context>(option => option.UseSqlServer
-("Server=srv2\\pupils;Database=StoreDataBase2Context;Trusted_Connection=True;TrustServerCertificate=True"));
+(builder.Configuration.GetConnectionString("connectDB")));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

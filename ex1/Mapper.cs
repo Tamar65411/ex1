@@ -13,7 +13,8 @@ namespace ex1
             CreateMap<Category, CategoriesDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ForMember(dest=>dest.CategoryName,
                 opts=>opts.MapFrom(src=>src.Category.Name)) .ReverseMap();
-
+            CreateMap<OrdersTbl, OrderDTO>().ReverseMap();
+            CreateMap<OrderItemTbl, OrderItemDTO>().ReverseMap();
         }
 
     }

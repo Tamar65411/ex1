@@ -37,25 +37,13 @@ const deleteFromBag = (product) => {
 
 
 const placeOrder = async () => {
-    let user = JSON.parse(sessionStorage.getItem("id"))
-        //    public int OrderId { get; set; }
-        //public string OrderDate { get; set; }
-        //public int OrderSum { get; set; }
-        //public string UserName { get; set; }
-
-        //public string ProductName { get; set; }
-        //public int Quentity { get; set; }
+    let user = JSON.parse(sessionStorage.getItem("user"))
     if (user) {
     var order = {
         orderDate: new Date,
         orderSum: allPrice,
         userId: user.userId,
         OrderItemTbls: myProduct
-
-
-
-
-
 
     }
         try {
@@ -71,12 +59,16 @@ const placeOrder = async () => {
             }
             else {
                 const newOrder = await responsePost.json();
-                alert(`${newOrder} `)
+                alert("ההזמנה בוצע בהצלחה")
+                 countProducts = 0;
+                allPrice = 0;
+                sessionStorage.removeItem("products")
+                window.location.href = "./Payment.html"
 
             }
         }
         catch (error) {
-            alert(error, "error")
+            alert(`the order didnt create`)
         }
 
     }

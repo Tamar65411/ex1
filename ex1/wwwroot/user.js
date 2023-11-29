@@ -14,7 +14,7 @@ const register = async () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(user)
-            });
+            });    
             if (!responsePost.ok) {
                 alert(`${user.firstName} not register`)
             }
@@ -52,45 +52,31 @@ const login = async () => {
         }
         else {
             const User = await responsePost.json();
-            sessionStorage.setItem("id", JSON.stringify(User))
+            sessionStorage.setItem("user", JSON.stringify(User))
             window.location.href = "./Products.html"
 
         }
     }
     catch (error) {
-        alert(error, "error")
+        alert(`not login`)
     }
 }
 
-//try {
-//    const responseGet = await fetch(`api/Users?email=${emailLog}&password=${passwordLog}`);
-//    if (!responseGet.ok) {
-//        alert("not login")
-//    }
-//    else {
-//        const dataGet = await responseGet.json();
-//        console.log(dataGet)
-//        sessionStorage.setItem("id", JSON.stringify(dataGet))
-//        window.location.href = "./Products.html"
-//    }
-
-//}
-//catch (error) {
-//    alert(error)
-//}
 
 
 const update = async () => {
     var user = {
-        email: document.getElementById("emailUp").value,
-        password: document.getElementById("passwordUp").value,
+        
         firstName: document.getElementById("firstNameUp").value,
-        lastName: document.getElementById("lastNameUp").value,
+        lastName: document.getElementById("lastNameUp").value,       
+        password: document.getElementById("passwordUp").value,
+        email: document.getElementById("emailUp").value,
+       
     }
-    var id = JSON.parse(sessionStorage.getItem("user")).id
-    alert(id)
+    var id = JSON.parse(sessionStorage.getItem("user")).userId
+  //  alert(id)
     try {
-        const responsePut = await fetch(`api/Users${id}`,
+        const responsePut = await fetch(`api/Users/${id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -103,7 +89,7 @@ const update = async () => {
         }
         else {
             const updateUser = await responsePut.json()
-            alert(updateUser.firstName)
+            window.location.href = "./Products.html"
         }
     }
     catch (error) {

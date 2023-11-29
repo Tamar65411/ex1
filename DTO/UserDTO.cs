@@ -11,7 +11,7 @@ namespace DTO
     {
 
         public string? Password { get; set; }
-        public int UserId { get; set; }
+      // public int UserId { get; set; }
 
         ////[MinLength(3, ErrorMessage = "incorrect first name")]
         public string? FirstName { get; set; }

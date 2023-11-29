@@ -43,7 +43,7 @@ ul {
 }
 
 .img-w {
-    height: 300px;
+    height: 250px;
 }
 
 p.description {
@@ -63,7 +63,7 @@ p.description {
 }
 
 .price {
-    color: grey;
+    color: black;
     font-size: 22px;
 }
 

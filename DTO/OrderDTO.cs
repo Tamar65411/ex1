@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,15 +11,24 @@ namespace DTO
     public class OrderDTO
     {
         public int OrderId { get; set; }
-        public string OrderDate { get; set; }
-        public int OrderSum { get; set; }
-        public string UserName { get; set; }
 
-        public string[] ProductName { get; set; }
-        public int Quentity { get; set; }
-       
+        public string OrderDate { get; set; } = null!;
+
+        public int OrderSum { get; set; }
+
+        public int? UserId { get; set; }
+
+
+        public virtual ICollection<OrderItemDTO> OrderItemTbls { get; set; } = new List<OrderItemDTO>();
+
+
+
+
+
     }
 
+   
+        
 
 
 

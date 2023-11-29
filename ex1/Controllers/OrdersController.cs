@@ -39,7 +39,8 @@ namespace ex1.Controllers
             {
                 return null;
             }
-            return CreatedAtAction(nameof(Get), new { id = newOrder.UserId }, newOrder);
+            OrderDTO data = mapper.Map< OrdersTbl,OrderDTO>(newOrder);
+            return CreatedAtAction(nameof(Get), new { id = data.OrderId }, data);
 
 
         }

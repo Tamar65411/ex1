@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Repository
 {
     public class UserRepository : IUserRepository
     {
         private  StoreDataBase2Context dbContext;
+
         public UserRepository(StoreDataBase2Context dbContext)
         {
             this.dbContext = dbContext;
