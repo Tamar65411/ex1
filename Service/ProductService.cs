@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTO;
+using Entities;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using System;
@@ -21,5 +22,9 @@ namespace Service
         {
             return await repository.getAllProduct(   desc,  minPrice,  maxPrice,categoriesId);
         }
+
+
+
+
     }
 }

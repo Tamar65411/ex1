@@ -34,5 +34,20 @@ namespace Repository
 
             return products;
         }
+
+        public async Task<IEnumerable<int>> getPricesById(int[] ids)
+        {
+            IEnumerable<Product> products = dbContext.Products.Where(p => ids.Contains(p.ProductId));
+            int[] prices = new int[products.Count()];
+            for (int i = 0; i < products.Count(); i++)
+            {
+                prices[i] = (int)products.ElementAt(i).Price;
+
+            }
+
+
+            return prices;
+
+        }
     }
 }

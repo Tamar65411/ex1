@@ -32,7 +32,10 @@ namespace ex1.Controllers
         [HttpPost]
         public async Task<CreatedAtActionResult> Post([FromBody] OrderDTO orderDTO)
         {
+
+
             OrdersTbl order = mapper.Map<OrderDTO, OrdersTbl>(orderDTO); 
+
 
             OrdersTbl newOrder = await service.addNewOrder(order);
             if (newOrder == null)

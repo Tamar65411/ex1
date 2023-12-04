@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTO;
+using Entities;
 
 namespace Repository
 {
@@ -6,6 +7,9 @@ namespace Repository
     {
     
         Task<IEnumerable<Product>> getAllProduct( string? desc, int? minPrice, int? maxPrice, int?[] categoriesId);
-     
+        Task<IEnumerable<int>> getPricesById(int[] ids);
+       
+        
+   
     }
 }

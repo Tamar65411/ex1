@@ -21,10 +21,7 @@ namespace Repository
         }
      
 
-        //public async Task<UsersTbl> getUserByEmailAndPassword(string email, string password)
-        //{
-        //    return await dbContext.UsersTbls.Where(e => e.Password == password && e.Email == email).FirstOrDefaultAsync();
-        //}
+
 
         public async Task<UsersTbl> getUserByEmailAndPassword(UserLoginDTO userLoginDTO)
         {

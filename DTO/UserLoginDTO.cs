@@ -10,7 +10,7 @@ namespace DTO
     {
         public string? Password { get; set; }
 
-        //[EmailAddress(ErrorMessage = "your email not correct")]
+       
         public string? Email { get; set; }
 
 

@@ -26,14 +26,6 @@ namespace Service
             return await repository.getUserByEmailAndPassword(userLoginDTO);
         }
     
-    //public async Task<UsersTbl> getUserByEmailAndPassword(string email, string password)
-    //{
-    //    return await repository.getUserByEmailAndPassword(email, password);
-    //}
-    //public async Task<User> getUserById(int id)
-    //{
-    //   return await repository.getUserById(id);
-    //}
 
     public async Task<UsersTbl> addUser(UsersTbl user)
         {
